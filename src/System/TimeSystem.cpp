@@ -23,26 +23,8 @@
 #define TIMESYSTEM_H
 
 #include <System/ISystem.hpp>
-#include <AGE_Assert.hpp>
-class TimeSystem: public ISystem
-{
-public:
-	bool Inited()
-	{
-		return true;
-	};
-	bool MainLoop()
-	{
-		AGE_PRINTCONSLE("TEST_ PRint");
-	}
-	bool Diposed()
-	{
-		return true;
-	}
-	TimeSystem() {}
-private:
 
-};
+
 
 
 

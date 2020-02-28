@@ -22,26 +22,7 @@
 #ifndef SCRIPTEVENTSYSTEM_H
 #define SCRIPTEVENTSYSTEM_H
 #include <System/ISystem.hpp>
-#include <AGE_Assert.hpp>
-class ScriptEventSystem : public ISystem
-{
-public:
-	bool Inited()
-	{
-		return true;
-	};
-	bool MainLoop()
-	{
-		AGE_PRINTCONSLE("TEST_ PRint"); return true;
-	}
-	bool Diposed()
-	{
-		return true;
-	}
-	ScriptEventSystem() {}
-private:
 
-};
 
 
 

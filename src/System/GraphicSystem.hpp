@@ -21,7 +21,8 @@
 */
 #ifndef GRAPHICSYSTEM_H
 #define GRAPHICSYSTEM_H
-
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include <System/ISystem.hpp>
 #include <AGE_Assert.hpp>
 class GLFWwindow;
@@ -31,7 +32,7 @@ class GraphicSystem: public ISystem
 public:
 	GraphicSystem() {}
 	bool Inited();
-	bool MainLoop();
+	bool Update();
 	bool Diposed()
 	{
 		return true;

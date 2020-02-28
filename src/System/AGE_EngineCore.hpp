@@ -22,9 +22,12 @@
 #ifndef AGE_ENGINECORE_H
 #define AGE_ENGINECORE_H
 #include <AGE_Assert.hpp>
-#include <System/ISystem.hpp>
+#include "RuntimeObjectSystem/IObjectFactorySystem.h"
+#include "RuntimeObjectSystem/ObjectInterface.h"
 
 
+struct IUpdateable;
+struct IRuntimeObjectSystem;
 class InputSystem;
 class TimeSystem;
 class AudioSystem;
@@ -32,8 +35,8 @@ class ScriptEventSystem;
 class GraphicSystem;
 class World;
 class UISystem;
-
-class AGE_EngineCore: public ISystem
+class IRuntimeObjectSystem;
+class AGE_EngineCore : public IObjectFactoryListener
 {
 public:
 	static InputSystem* _InputSystem;
@@ -43,18 +46,29 @@ public:
 	GraphicSystem* _GraphicSystem=0;
 	World* _MainEditorWorld=0;
 	UISystem* _UISystem=0;
+	
 
 	AGE_EngineCore() {}
 
 	 bool Inited();
-	 bool MainLoop();
+	 virtual bool Update();
+	 virtual void OnConstructorsAdded();
 	 bool Diposed()
 	{
+		 delete g_pRuntimeObjectSystem;
 		return true;
 	}
 
 private:
+	// Runtime Systems
+	ICompilerLogger* m_pCompilerLogger=0;
+	IRuntimeObjectSystem* g_pRuntimeObjectSystem = 0;
+	// Runtime object
+	IUpdateable* m_pUpdateable=0;
+	ObjectId	   			m_ObjectId;
 
+	bool RCCppInit();
+	void RCCppUpdate();
 };
 
 

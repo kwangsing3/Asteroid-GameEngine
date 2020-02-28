@@ -22,11 +22,15 @@
 #ifndef ISYSTEM_H
 #define ISYSTEM_H
 
-class ISystem
+
+//#include "RuntimeObjectSystem/IObject.h"
+//#include "IUpdateable.h"
+//#include "InterfaceIds.h"
+class ISystem//: public TInterface<IID_IUPDATEABLE, IUpdateable>
 {
 public:
 	virtual bool Inited() = 0; 
-	virtual bool MainLoop() = 0;
+	virtual bool Update() = 0;
 	virtual bool Diposed() = 0;
 private:
 

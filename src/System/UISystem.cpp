@@ -20,77 +20,53 @@
 	THE SOFTWARE.
 */
 #include <System/UISystem.hpp>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <GraphicEngine/imgui.h>
-#include <GraphicEngine/imgui_impl_glfw.h>
-#include <GraphicEngine/imgui_impl_opengl3.h>
-#include <GraphicEngine/imgui_Custom.hpp>
 
-#include <System/AGE_EngineCore.hpp>
-#include <System/GraphicSystem.hpp>
-//#include <AGE_FileBrowser.hpp>
-extern AGE_EngineCore* _AGE_EngineCore;
+#include "RuntimeObjectSystem/IObject.h"
+#include "RuntimeObjectSystem/SystemTable.h"
+#include "RuntimeObjectSystem/ISimpleSerializer.h"
+#include "RuntimeObjectSystem/IRuntimeObjectSystem.h"
+#include "RuntimeObjectSystem/IObjectFactorySystem.h"
 
-bool UISystem::Inited()
+#include "RuntimeObjectSystem/RuntimeSourceDependency.h"
+RUNTIME_COMPILER_SOURCEDEPENDENCY_FILE("../../GraphicEngine/imgui", ".cpp");
+RUNTIME_COMPILER_SOURCEDEPENDENCY_FILE("../../GraphicEngine/imgui_widgets", ".cpp");
+RUNTIME_COMPILER_SOURCEDEPENDENCY_FILE("../../GraphicEngine/imgui_draw", ".cpp");
+RUNTIME_COMPILER_SOURCEDEPENDENCY_FILE("../../GraphicEngine/imgui_demo", ".cpp");
+
+
+// add imgui source dependencies
+// an alternative is to put imgui into a library and use RuntimeLinkLibrary
+
+enum InterfaceIDEnumConsoleExample
 {
-	
-#ifdef  __APPLE__
-	// GL 3.2 + GLSL 150
-	const char* glsl_version = "#version 150";
-#else
-	// GL 3.0 + GLSL 130
-	const char* glsl_version = "#version 130";
+	IID_IRCCPP_MAIN_LOOP = IID_ENDInterfaceID, // IID_ENDInterfaceID from IObject.h InterfaceIDEnum
 
-#endif //__APPLE__
-	//UI 初始化-------------
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); //(void)io;
-	ImFontConfig font_config; font_config.OversampleH = 1; font_config.OversampleV = 1; font_config.PixelSnapH = 1;
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-	//	io.Fonts->AddFontFromFileTTF("C:/Windows/Fonts/msyh.ttc", 15.0f, &font_config, io.Fonts->GetGlyphRangesChineseFull());
-	//	io.Fonts->Build();
-
-		// Setup Dear ImGui style
-		//ImGui::StyleColorsDark();
-		//ImGui::StyleColorsClassic();
-	ImGui::StyleColorsCustom();
-	// Setup Platform/Renderer bindings
-	ImGui_ImplGlfw_InitForOpenGL(_AGE_EngineCore->_GraphicSystem->MainGLFWwindow, true);
-	ImGui_ImplOpenGL3_Init(glsl_version);
-	
-	return true;
-}
-void Updated_WindowEvent();
-bool UISystem::MainLoop()
+	IID_ENDInterfaceIDEnumConsoleExample
+};
+struct UISystem : IUISystem, TInterface<IID_IRCCPP_MAIN_LOOP, IObject>
 {
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplGlfw_NewFrame();
-	ImGui::NewFrame();
 
-	Updated_WindowEvent();
-
-
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-
-	glfwSwapBuffers(_AGE_EngineCore->_GraphicSystem->MainGLFWwindow);
-	glfwPollEvents();
-	return true;
-}
-
-void Updated_WindowEvent()
-{
-	static bool Open_FileBrowser = true;
-	if (!ImGui::Begin("FileBrowser", &Open_FileBrowser))	// Early out if the window is collapsed, as an optimization.
+	bool Inited()
 	{
-		ImGui::End();
-		return;
+		return true;
 	}
-	//AGE_FileBrowser::ImGUIListTheBrowser();
-	ImGui::End();
 
 
-}
+	void MainLoop() override
+	{
+		ImGui::SetCurrentContext(PerModuleInterface::g_pSystemTable->pImContext);     //這邊是NULL   有問題------------------
+
+		ImGui::SetNextWindowPos(ImVec2(50, 400), ImGuiCond_Appearing);
+		ImGui::SetNextWindowSize(ImVec2(0, 0), ImGuiCond_Always);
+		ImGui::Begin("RCCppMainLoop Window");
+		ImGui::Text("You can change Window's code at runtime! ");
+		ImGui::Image(0,ImVec2(200,200));
+		ImGui::End();
+	}
+	UISystem()
+	{
+		PerModuleInterface::g_pSystemTable->pRCCppMainLoopI = this;
+	}
+};
+REGISTERSINGLETON(UISystem, true);

@@ -22,8 +22,7 @@
 #define AGE_GRAPGICAPI_OPENGL
 
 #include <System/GraphicSystem.hpp>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+
 
 extern unsigned int Window_Width, Window_Height;
 
@@ -98,7 +97,7 @@ bool GraphicSystem::Inited()
 	return true;
 }
 
-bool GraphicSystem::MainLoop()
+bool GraphicSystem::Update()
 {
 	if (glfwWindowShouldClose(MainGLFWwindow))return false;
 

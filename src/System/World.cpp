@@ -23,26 +23,6 @@
 #define WORLD_H
 
 #include <System/ISystem.hpp>
-#include <AGE_Assert.hpp>
-struct World: public ISystem
-{
-public:
-	bool Inited()
-	{
-		return true;
-	};
-	bool MainLoop()
-	{
-		AGE_PRINTCONSLE("TEST_ PRint"); return true;
-	}
-	bool Diposed()
-	{
-		return true;
-	}
-	World() {}
-private:
-
-};
 
 
 

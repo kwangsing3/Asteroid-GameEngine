@@ -36,13 +36,17 @@ include_directories(${CMAKE_SOURCE_DIR}/lib/glm)
 aux_source_directory(${CMAKE_SOURCE_DIR}/src MAIN_SRCS) 
 aux_source_directory(${CMAKE_SOURCE_DIR}/src/GraphicEngine GRAPHICENGINE_SRCS)
 #aux_source_directory(${CMAKE_SOURCE_DIR}/src/Component COMPONENT_SRCS)
+aux_source_directory(${CMAKE_SOURCE_DIR}/src/RuntimeCompiler RC_SRCS)
+aux_source_directory(${CMAKE_SOURCE_DIR}/src/RuntimeObjectSystem RCSYSTEM_SRCS)
 aux_source_directory(${CMAKE_SOURCE_DIR}/src/System SYSTEM_SRCS)
 
 LIST (APPEND ALL_SRC          #每次新增資料夾時都要記得增加資料夾列表
 ${MAIN_SRCS}
 ${GRAPHICENGINE_SRCS}
 #${COMPONENT_SRCS}
-${SYSTEM_SRCS}  
+${RC_SRCS}  
+${RCSYSTEM_SRCS}  
+${SYSTEM_SRCS}
 )
 #link_directories(${PROJECT_NAME} ${BULLET_LIBRARY_DIRS})
 
@@ -99,3 +103,4 @@ add_custom_command(
              ${CMAKE_SOURCE_DIR}/src/ExampleModel $<TARGET_FILE_DIR:${PROJECT_NAME}>/ExampleModel
          COMMENT "Copying ExampleModel" VERBATIM
          )
+

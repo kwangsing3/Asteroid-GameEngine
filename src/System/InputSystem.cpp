@@ -28,7 +28,7 @@
 #define MainWindow _AGE_EngineCore->_GraphicSystem->MainGLFWwindow
 extern bool _Application;
 extern AGE_EngineCore* _AGE_EngineCore;
-bool InputSystem::MainLoop()
+bool InputSystem::Update()
 {	
 	if (glfwGetKey(MainWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(MainWindow, GLFW_TRUE);

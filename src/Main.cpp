@@ -19,20 +19,44 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
 */
+#define CONSOLE_TOPMOST
+#ifdef CONSOLE_TOPMOST
+#include<Windows.h>
 
+
+#endif
 #include <System/AGE_EngineCore.hpp>
-
-
+#include <ConsoleGame.h>
+#include <conio.h>
 AGE_EngineCore* _AGE_EngineCore = new AGE_EngineCore();
 
 int main()
 {
+	SetWindowPos(GetConsoleWindow(),HWND_TOPMOST,0,0,0,0,SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE);  //本身沒有意義  只是為了讓CMD保持在最上層 *Windows 限定
+	/*ConsoleGame game;
+	if (game.Init())
+	{
+		while (game.MainLoop())
+		{
+		}
+	}
+	else
+	{
+		std::cout << "\nFailed Initialisation, press a key to exit.\n";
+		_getche();
+	}
+
+	std::cout << "Exiting...\n";
+
+	*/
 
 	if (!_AGE_EngineCore->Inited()) { return -1; }
 
-	while (_AGE_EngineCore->MainLoop())
+	while (_AGE_EngineCore->Update())
 	{
 		
+
+
 	}
 
 	_AGE_EngineCore->Diposed();

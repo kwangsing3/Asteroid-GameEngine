@@ -1,4 +1,4 @@
-#pragma once
+#ifndef IMGUI_CUSTOM_STYLE
 
 #include "imgui.h"
 #include "imgui_internal.h"
@@ -60,3 +60,5 @@ namespace ImGui
 		colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.35f);
 	}
 }
+
+#endif // !IMGUI_CUSTOM_STYLE

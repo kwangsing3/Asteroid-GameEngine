@@ -31,7 +31,7 @@ public:
 	{
 		return true;
 	};
-	bool MainLoop();
+	bool Update();
 	bool Diposed()
 	{
 		return true;

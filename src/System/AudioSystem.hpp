@@ -31,9 +31,10 @@ public:
 	{
 		return true;
 	};
-	bool MainLoop()
+	bool Update()
 	{
-		AGE_PRINTCONSLE("TEST_ PRint"); return true;
+		//AGE_PRINTCONSLE("TEST_ PRint"); 
+		return true;
 	}
 	bool Diposed()
 	{

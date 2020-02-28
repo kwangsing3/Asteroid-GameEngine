@@ -23,26 +23,6 @@
 #define AUDIOSYSTEM_H
 
 #include <System/ISystem.hpp>
-#include <AGE_Assert.hpp>
-class AudioSystem: public ISystem
-{
-public:
-	bool Inited()
-	{
-		return true;
-	};
-	bool MainLoop()
-	{
-		AGE_PRINTCONSLE("TEST_ PRint"); return true;
-	}
-	bool Diposed()
-	{
-		return true;
-	}
-	AudioSystem() {}
-private:
-
-};
 
 
 

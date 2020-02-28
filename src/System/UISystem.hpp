@@ -22,23 +22,19 @@
 #ifndef UISYSTEM_H
 #define UISYSTEM_H
 
-#include <System/ISystem.hpp>
-#include <AGE_Assert.hpp>
-class UISystem : public ISystem
+
+
+
+
+
+
+
+
+struct IUISystem
 {
-public:
-	bool Inited();
-	bool MainLoop();
-	bool Diposed()
-	{
-		return true;
-	}
-	UISystem() {}
-private:
-
+	virtual bool Inited() = 0;
+	virtual void MainLoop() = 0;
 };
-
-
 
 
 #endif // !UISYSTEM_H
